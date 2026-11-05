@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { usePathname } from 'next/navigation';
 
 interface HeaderProps {
   onMenuToggle: () => void;
@@ -24,13 +25,8 @@ export default function Header({
   onPrevMonth,
   onNextMonth,
 }: HeaderProps) {
-  // We dynamically get pathname on client
-  const [pageTitle, setPageTitle] = React.useState('Dashboard');
-
-  React.useEffect(() => {
-    const path = window.location.pathname;
-    setPageTitle(pageTitles[path] || 'Dashboard');
-  }, []);
+  const pathname = usePathname();
+  const pageTitle = pageTitles[pathname] || 'Dashboard';
 
   const monthLabel = currentMonth.toLocaleDateString('id-ID', {
     month: 'long',
